@@ -12,6 +12,12 @@ import tensorflow_text as text
 import tensorflow as tf
 from tensorflow_text.tools.wordpiece_vocab import bert_vocab_from_dataset as bert_vocab
 import yaml
+
+import sys
+from pathlib import Path
+src_path = Path(__file__).parent.parent.parent.resolve()
+sys.path.append(str(src_path))
+
 from src.data.load_dataset import load_language_dataset ,load_tensor, save_tensor_batches
 
 tf.get_logger().setLevel('ERROR')
@@ -24,7 +30,7 @@ pwd = pathlib.Path.cwd()
 #model_name_zip = 'ted_hrlr_translate_pt_en_converter.zip'
 model_name = 'ted_hrlr_translate/pt_to_en'
 #train_examples, val_examples = load_language_dataset(model_name)
-PYTHONPATH='/Users/gema/Documents/Neural-Machine-Translation'
+PYTHONPATH='.'
 #['BUFFER_SIZE'] = 20000
 #BATCH_SIZE = 64
 #['MAX_TOKENS'] = 128
@@ -39,15 +45,18 @@ def load_dataset_tokenized() -> Tokenizer:
 
     fullPath = os.path.abspath(PYTHONPATH + "/datasets/" + config['tokenizer_transformer']['model_name_zip']) 
     print('----THE PATH FROM IT READS IS----'+ fullPath)
-   
-    model_for_processing = tf.keras.utils.get_file(config['tokenizer_transformer']['model_name_zip'], 'file://'+ fullPath, untar=True)
-    
+
+    #model_for_processing = tf.keras.utils.get_file(config['tokenizer_transformer']['model_name_zip'], 'file://'+ fullPath, untar=True)
+    model_for_processing = fullPath
+    print("*****")
+    print(model_for_processing)
+    print("*****")
     with ZipFile(model_for_processing, 'r') as zipObj:
-        zipObj.extractall('/Users/gema/.keras/datasets/')
+        zipObj.extractall('./datasets/')
 
     print('----MODEL LOADED----')
     #folder_name = 'ted_hrlr_translate_pt_en_converter'
-    tokenizer = tf.saved_model.load('/Users/gema/.keras/datasets/' + config['tokenizer_transformer']['folder_name'])
+    tokenizer = tf.saved_model.load('./datasets/' + config['tokenizer_transformer']['folder_name'])
     print('----TOKENIZER----' ,tokenizer)
     return tokenizer
 

@@ -1,5 +1,10 @@
 import tensorflow as tf
 import time
+import sys
+from pathlib import Path
+src_path = Path(__file__).parent.parent.parent.resolve()
+sys.path.append(str(src_path))
+
 from src.models.transformer import Transformer , CustomSchedule , checkpoints
 from src.features.tokenizer_transformer import make_batches
 

@@ -1,5 +1,11 @@
 import numpy as np
 import tensorflow as tf
+
+import sys
+from pathlib import Path
+src_path = Path(__file__).parent.parent.parent.resolve()
+sys.path.append(str(src_path))
+
 from src.features.tokenizer_transformer import load_dataset_tokenized
 from src.data.load_dataset import load_language_dataset, save_tensor, load_tensor
 from src.features.tokenizer_transformer import make_batches
