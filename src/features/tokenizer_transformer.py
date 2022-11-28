@@ -81,12 +81,15 @@ def prepare_token_batches(pt, en):
 
 
 def make_batches(ds):
-  return (
-      ds
-      .shuffle(config['tokenizer_transformer']['BUFFER_SIZE'])
-      .batch(config['tokenizer_transformer']['BATCH_SIZE'])
-      .map(prepare_token_batches, tf.data.AUTOTUNE)
-      .prefetch(buffer_size=tf.data.AUTOTUNE))
+    print("FUNCTION make_batches")
+    print(ds)
+    return (
+        ds
+            .shuffle(config['tokenizer_transformer']['BUFFER_SIZE'])
+            .batch(config['tokenizer_transformer']['BATCH_SIZE'])
+            .map(prepare_token_batches, tf.data.AUTOTUNE)
+            .prefetch(buffer_size=tf.data.AUTOTUNE)
+    )
 
 
     # Create training and validation set batches. Commented for now to ensure loading.

@@ -111,8 +111,8 @@ for epoch in range(config['train_transformer']['EPOCHS']):
     train_step(inp, tar)
 
  ### ------Add metrics to dvc live 
-    live.log("train/accuracy", float(train_accuracy.result()))
-    live.log("train/loss", float(train_loss.result()))
+    live.log_metric("train/accuracy", float(train_accuracy.result()))
+    live.log_metric("train/loss", float(train_loss.result()))
     
     live.next_step()
 
@@ -124,7 +124,6 @@ for epoch in range(config['train_transformer']['EPOCHS']):
     ckpt_save_path = checkpoints.save()
     print(f'Saving checkpoint for epoch {epoch+1} at {ckpt_save_path}')
 
-   
   print(f'Epoch {epoch + 1} Loss {train_loss.result():.4f} Accuracy {train_accuracy.result():.4f}')
 
   print(f'Time taken for 1 epoch: {time.time() - start:.2f} secs\n')
